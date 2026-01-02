@@ -4,6 +4,7 @@ import { Download, Github, Linkedin, Mail } from 'lucide-react';
 import PixelCard from './PixelCard';
 import React from 'react';
 import { motion } from 'framer-motion';
+import profilePhoto from '../assets/photo.jpeg';
 
 const Hero: React.FC = () => {
   return (
@@ -31,7 +32,7 @@ const Hero: React.FC = () => {
           >
             {/* Profile Photo */}
             <div className='w-full h-full bg-white border-4 border-black pixel-shadow flex items-center justify-center overflow-hidden'>
-              <img src='assets/photo.jpeg' alt='Serhii Serdiuk' className='w-full h-full object-cover' />
+              <img src={profilePhoto} alt='Serhii Serdiuk' className='w-full h-full object-cover' />
             </div>
             {/* Coins */}
             <motion.div
@@ -94,3 +95,4 @@ const Hero: React.FC = () => {
 };
 
 export default Hero;
+
