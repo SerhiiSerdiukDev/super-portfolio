@@ -30,9 +30,18 @@ const Hero: React.FC = () => {
             transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
             className='w-48 h-48 md:w-64 md:h-64 relative'
           >
-            {/* Profile Photo */}
-            <div className='w-full h-full bg-white border-4 border-black pixel-shadow flex items-center justify-center overflow-hidden'>
-              <img src={profilePhoto} alt='Serhii Serdiuk' className='w-full h-full object-cover' />
+            {/* Profile Photo with hover swap */}
+            <div className='group relative w-full h-full bg-white border-4 border-black pixel-shadow overflow-hidden'>
+              <img
+                src={profilePhoto}
+                alt='Serhii Serdiuk'
+                className='w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0'
+              />
+              <img
+                src='https://avatars.githubusercontent.com/u/130998461?v=4'
+                alt='Serhii Serdiuk alternate portrait'
+                className='absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:[filter:blur(0.5px)] [filter:blur(3px)]'
+              />
             </div>
             {/* Coins */}
             <motion.div
