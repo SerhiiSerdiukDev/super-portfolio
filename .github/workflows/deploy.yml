@@ -1,45 +1,45 @@
 name: Deploy to Cloud Run
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 env:
-    PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-    REGION: us-west1
-    SERVICE_NAME: super-portfolio
-    ARTIFACT_REGISTRY: us-west1-docker.pkg.dev
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: us-west1
+  SERVICE_NAME: super-portfolio
+  ARTIFACT_REGISTRY: us-west1-docker.pkg.dev
 
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Google Auth
-              id: auth
-              uses: google-github-actions/auth@v2
-              with:
-                  credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: Google Auth
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-            - name: Set up Cloud SDK
-              uses: google-github-actions/setup-gcloud@v2
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
 
-            - name: Configure Docker for Artifact Registry
-              run: gcloud auth configure-docker ${{ env.ARTIFACT_REGISTRY }}
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker ${{ env.ARTIFACT_REGISTRY }}
 
-            - name: Build and Push Container
-              run: |
-                  docker build -t $ARTIFACT_REGISTRY/$PROJECT_ID/$SERVICE_NAME/$SERVICE_NAME:${{ github.sha }} .
-                  docker push $ARTIFACT_REGISTRY/$PROJECT_ID/$SERVICE_NAME/$SERVICE_NAME:${{ github.sha }}
+      - name: Build and Push Container
+        run: |
+          docker build -t $ARTIFACT_REGISTRY/$PROJECT_ID/$SERVICE_NAME/$SERVICE_NAME:${{ github.sha }} .
+          docker push $ARTIFACT_REGISTRY/$PROJECT_ID/$SERVICE_NAME/$SERVICE_NAME:${{ github.sha }}
 
-            - name: Deploy to Cloud Run
-              uses: google-github-actions/deploy-cloudrun@v2
-              with:
-                  service: ${{ env.SERVICE_NAME }}
-                  image: ${{ env.ARTIFACT_REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-                  region: ${{ env.REGION }}
-                  flags: "--allow-unauthenticated"
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ env.SERVICE_NAME }}
+          image: ${{ env.ARTIFACT_REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          region: ${{ env.REGION }}
+          flags: "--allow-unauthenticated --labels dev-tutorial=devnewyear2026"
