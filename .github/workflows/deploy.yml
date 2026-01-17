@@ -42,4 +42,5 @@ jobs:
           service: ${{ env.SERVICE_NAME }}
           image: ${{ env.ARTIFACT_REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
           region: ${{ env.REGION }}
-          flags: "--allow-unauthenticated --labels dev-tutorial=devnewyear2026"
+          flags: "--allow-unauthenticated"
+          labels: "dev-tutorial=devnewyear2026"
