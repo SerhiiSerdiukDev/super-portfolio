@@ -81,8 +81,8 @@ const Hero: React.FC = () => {
             <div className='flex flex-wrap gap-2 mt-4'>
               <span className='bg-green-200 px-2 py-1 border-2 border-black text-xs'>TypeScript</span>
               <span className='bg-red-200 px-2 py-1 border-2 border-black text-xs'>Angular</span>
-              <span className='bg-blue-200 px-2 py-1 border-2 border-black text-xs'>React</span>
-              <span className='bg-yellow-200 px-2 py-1 border-2 border-black text-xs'>RxJS</span>
+              <span className='bg-blue-200 px-2 py-1 border-2 border-black text-xs'>RxJS</span>
+              <span className='bg-yellow-200 px-2 py-1 border-2 border-black text-xs'>NgRx</span>
             </div>
             <button className='mt-6 w-full bg-[#00aa00] text-white border-4 border-black py-3 hover:bg-[#00cc00] transition-colors flex items-center justify-center gap-2 pixel-text-shadow'>
               <Download size={16} /> Download Resume
